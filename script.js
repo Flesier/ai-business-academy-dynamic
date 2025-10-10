@@ -163,29 +163,220 @@ const AppData = {
         },
         {
             id: 8,
-            title: 'DIY Drone Training',
-            description: 'Complete guide to building, programming, and operating custom drones for business applications. From components to autonomous systems.',
+            title: 'DIY Drone Development & Business Applications',
+            description: 'Master drone building, programming, and business applications. From components to autonomous flight systems and profitable ventures.',
             category: 'Technology',
             difficulty: 'Advanced',
-            duration: 15,
+            duration: 27,
             icon: 'fas fa-helicopter',
-            source: 'AI Business Academy Original',
+            source: 'Curated Open Source Content',
             sourceUrl: 'https://instructables.com/drone-building',
-            instructor: 'AI Business Academy',
-            rating: 4.8,
+            instructor: 'Open Source Community',
+            rating: 4.9,
+            modules: [
+                {
+                    id: 1,
+                    title: 'Introduction to Drone Technology',
+                    duration: 2,
+                    description: 'Understand the fundamental physics of drone flight, types of drones, and key terminology.',
+                    topics: [
+                        'Physics of Drone Flight (Newton\'s Laws)',
+                        'Types of Drones (Quadcopter, Hexacopter, Fixed-Wing)',
+                        'Drone Terminology (Roll, Pitch, Yaw, DOF)',
+                        'Overview of Drone Components',
+                        'Open Source Platforms (ArduPilot, PX4)'
+                    ],
+                    practicalExercise: 'Analyze three different drone models and identify their type, application, and key features.',
+                    learningObjectives: [
+                        'Understand fundamental physics of drone flight',
+                        'Differentiate between various drone types',
+                        'Define key drone terminology',
+                        'Identify primary drone components',
+                        'Recognize role of open source platforms'
+                    ]
+                },
+                {
+                    id: 2,
+                    title: 'Drone Components and Selection',
+                    duration: 3,
+                    description: 'Deep dive into drone hardware and learn component selection principles.',
+                    topics: [
+                        'Frames (Materials, Sizes, Designs)',
+                        'Motors and Propellers (Thrust, Efficiency)',
+                        'Electronic Speed Controllers (ESCs)',
+                        'Flight Controllers (ArduPilot vs PX4)',
+                        'Power Systems (Batteries, PDBs)',
+                        'Radio Systems (Transmitters, Receivers)',
+                        'GPS and Navigation Sensors'
+                    ],
+                    practicalExercise: 'Create a complete parts list for a 5-inch freestyle quadcopter with justification for each component choice.',
+                    learningObjectives: [
+                        'Identify and understand all major drone components',
+                        'Learn component selection principles',
+                        'Understand trade-offs between choices',
+                        'Create compatible parts lists'
+                    ]
+                },
+                {
+                    id: 3,
+                    title: 'Drone Assembly and Construction',
+                    duration: 4,
+                    description: 'Master the physical assembly of a quadcopter with professional build quality.',
+                    topics: [
+                        'Frame Assembly Techniques',
+                        'Motor Mounting and ESC Installation',
+                        'Soldering and Wiring Best Practices',
+                        'Flight Controller Placement',
+                        'Power System Integration',
+                        'Final Assembly and Pre-flight Checks'
+                    ],
+                    practicalExercise: 'Assemble a complete quadcopter with documentation of each step and professional wiring.',
+                    learningObjectives: [
+                        'Master physical assembly techniques',
+                        'Develop proficient soldering skills',
+                        'Understand component placement best practices',
+                        'Complete professional drone builds'
+                    ]
+                },
+                {
+                    id: 4,
+                    title: 'Flight Controller Setup and Configuration',
+                    duration: 3,
+                    description: 'Configure and program flight controllers using Mission Planner and QGroundControl.',
+                    topics: [
+                        'Installing Ground Control Software',
+                        'Flashing Firmware (ArduPilot/PX4)',
+                        'Initial Setup and Calibration',
+                        'Flight Mode Configuration',
+                        'Motor and ESC Calibration',
+                        'Failsafe Configuration'
+                    ],
+                    practicalExercise: 'Complete initial software setup and calibration of flight controller system.',
+                    learningObjectives: [
+                        'Master flight controller configuration',
+                        'Understand firmware installation',
+                        'Complete system calibration',
+                        'Configure safety systems'
+                    ]
+                },
+                {
+                    id: 5,
+                    title: 'First Flight and PID Tuning',
+                    duration: 2,
+                    description: 'Achieve first flight and optimize performance through PID tuning.',
+                    topics: [
+                        'Pre-flight Safety Procedures',
+                        'First Hover and Basic Maneuvers',
+                        'PID Control Theory',
+                        'PID Tuning Process',
+                        'Flight Log Analysis',
+                        'Performance Optimization'
+                    ],
+                    practicalExercise: 'Perform successful first flight and tune PID settings for stable flight performance.',
+                    learningObjectives: [
+                        'Execute safe first flights',
+                        'Understand PID control principles',
+                        'Master tuning procedures',
+                        'Analyze flight performance data'
+                    ]
+                },
+                {
+                    id: 6,
+                    title: 'Autonomous Flight and Mission Planning',
+                    duration: 3,
+                    description: 'Program autonomous missions and understand advanced flight modes.',
+                    topics: [
+                        'Autonomous Flight Modes',
+                        'Mission Planning Software',
+                        'Waypoint Mission Creation',
+                        'Geofencing and Safety Features',
+                        'Mission Execution and Monitoring',
+                        'Advanced Navigation Systems'
+                    ],
+                    practicalExercise: 'Plan and execute a complex autonomous waypoint mission with safety protocols.',
+                    learningObjectives: [
+                        'Master autonomous flight capabilities',
+                        'Create complex mission plans',
+                        'Implement safety systems',
+                        'Monitor autonomous operations'
+                    ]
+                },
+                {
+                    id: 7,
+                    title: 'Advanced Features and Integration',
+                    duration: 3,
+                    description: 'Integrate FPV systems, sensors, and companion computers.',
+                    topics: [
+                        'First-Person View (FPV) Systems',
+                        'Telemetry and OSD Integration',
+                        'Additional Sensor Integration',
+                        'Companion Computer Setup',
+                        'DroneKit and MAVLink Programming',
+                        'Custom Application Development'
+                    ],
+                    practicalExercise: 'Set up complete FPV system with telemetry and develop custom control application.',
+                    learningObjectives: [
+                        'Integrate advanced drone systems',
+                        'Master FPV technology',
+                        'Develop custom applications',
+                        'Understand communication protocols'
+                    ]
+                },
+                {
+                    id: 8,
+                    title: 'Drone Business Applications and Entrepreneurship',
+                    duration: 2,
+                    description: 'Explore commercial opportunities and develop drone business strategies.',
+                    topics: [
+                        'Market Opportunity Analysis',
+                        'Service Pricing Strategies',
+                        'Business Plan Development',
+                        'Marketing and Client Acquisition',
+                        'Legal and Insurance Requirements',
+                        'Successful Business Case Studies'
+                    ],
+                    practicalExercise: 'Develop comprehensive business plan for drone-based service with market analysis and financial projections.',
+                    learningObjectives: [
+                        'Identify profitable opportunities',
+                        'Develop business strategies',
+                        'Understand legal requirements',
+                        'Create actionable business plans'
+                    ]
+                },
+                {
+                    id: 9,
+                    title: 'Regulations and Safety Compliance',
+                    duration: 1,
+                    description: 'Master regulatory compliance and safety protocols for commercial operations.',
+                    topics: [
+                        'FAA Part 107 Certification',
+                        'Airspace Classifications',
+                        'No-Fly Zone Compliance',
+                        'Privacy and Ethical Considerations',
+                        'Emergency Procedures',
+                        'Regulatory Updates and Changes'
+                    ],
+                    practicalExercise: 'Complete practice Part 107 exam and develop comprehensive safety protocol document.',
+                    learningObjectives: [
+                        'Understand regulatory requirements',
+                        'Master safety protocols',
+                        'Prepare for certification',
+                        'Develop compliance procedures'
+                    ]
+                }
+            ],
             lessons: [
                 'Introduction to Drone Technology',
-                'Drone Components and Hardware',
-                'Flight Controllers and Programming',
-                'Building Your First Drone',
-                'Flight Safety and Regulations',
-                'Advanced Programming and Automation',
-                'Business Applications and Use Cases',
-                'Maintenance and Troubleshooting',
-                'Final Project: Custom Drone Build'
+                'Drone Components and Selection',
+                'Assembly and Construction',
+                'Flight Controller Setup',
+                'First Flight and PID Tuning',
+                'Autonomous Flight Programming',
+                'Advanced Features Integration',
+                'Business Applications',
+                'Regulations and Safety'
             ]
-        }
-    ],
+        }],
     
     curriculumSteps: [
         {
@@ -646,6 +837,26 @@ const UI = {
                         <span><i class="fas fa-tag mr-1"></i> ${course.category}</span>
                     </div>
                     
+                    <!-- Detailed Modules for Drone Course -->
+                    ${course.id === 8 && course.modules ? `
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">Course Modules:</h4>
+                        <div class="space-y-1 max-h-32 overflow-y-auto">
+                            ${course.modules.slice(0, 4).map(module => `
+                                <div class="text-xs text-gray-600 flex items-center">
+                                    <i class="fas fa-play-circle mr-1 text-blue-500"></i>
+                                    ${module.title} (${module.duration}h)
+                                </div>
+                            `).join('')}
+                            ${course.modules.length > 4 ? `
+                                <div class="text-xs text-gray-500 italic">
+                                    +${course.modules.length - 4} more modules...
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    ` : ''}
+                    
                     <!-- Action Buttons -->
                     <div class="space-y-2">
                         <button 
@@ -654,6 +865,15 @@ const UI = {
                         >
                             ${Auth.isLoggedIn() && AppData.currentUser.progress[course.id] ? 'Continue Learning' : 'Enroll Now'}
                         </button>
+                        ${course.id === 8 ? `
+                        <button 
+                            onclick="UI.showDroneModules()" 
+                            class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
+                        >
+                            <i class="fas fa-list mr-1"></i>
+                            View All Modules
+                        </button>
+                        ` : ''}
                         ${course.sourceUrl && course.sourceUrl !== '#' ? `
                         <a 
                             href="${course.sourceUrl}" 
@@ -1034,6 +1254,131 @@ const UI = {
         } catch (error) {
             loadingDiv.remove();
             Utils.showNotification('Error getting AI response', 'error');
+        }
+    },
+    
+    // Show detailed drone course modules
+    showDroneModules: () => {
+        const dronesCourse = AppData.courses.find(course => course.id === 8);
+        if (!dronesCourse || !dronesCourse.modules) return;
+        
+        // Create modal content
+        const modalContent = `
+            <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-2xl font-bold text-gray-900">
+                                <i class="fas fa-helicopter text-blue-600 mr-2"></i>
+                                DIY Drone Development Course Modules
+                            </h2>
+                            <button onclick="UI.closeDroneModules()" class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-600 mt-2">Comprehensive 27-hour course covering drone building, programming, and business applications</p>
+                    </div>
+                    
+                    <div class="p-6 overflow-y-auto max-h-[70vh]">
+                        <div class="grid gap-6">
+                            ${dronesCourse.modules.map(module => `
+                                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h3 class="text-lg font-semibold text-gray-900">
+                                            Module ${module.id}: ${module.title}
+                                        </h3>
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded">
+                                            ${module.duration}h
+                                        </span>
+                                    </div>
+                                    
+                                    <p class="text-gray-600 mb-3">${module.description}</p>
+                                    
+                                    <div class="mb-3">
+                                        <h4 class="text-sm font-semibold text-gray-700 mb-2">Key Topics:</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                            ${module.topics.map(topic => `
+                                                <div class="text-sm text-gray-600 flex items-center">
+                                                    <i class="fas fa-check-circle text-green-500 mr-2 text-xs"></i>
+                                                    ${topic}
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h4 class="text-sm font-semibold text-gray-700 mb-2">Learning Objectives:</h4>
+                                        <div class="space-y-1">
+                                            ${module.learningObjectives.map(objective => `
+                                                <div class="text-sm text-gray-600 flex items-start">
+                                                    <i class="fas fa-target text-blue-500 mr-2 text-xs mt-1"></i>
+                                                    ${objective}
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 p-3 rounded">
+                                        <h4 class="text-sm font-semibold text-gray-700 mb-1">Practical Exercise:</h4>
+                                        <p class="text-sm text-gray-600">${module.practicalExercise}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                            <h3 class="text-lg font-semibold text-blue-900 mb-2">Course Completion Benefits</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-blue-800">
+                                <div class="flex items-center">
+                                    <i class="fas fa-certificate mr-2"></i>
+                                    Professional drone building skills
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-code mr-2"></i>
+                                    Flight controller programming
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-business-time mr-2"></i>
+                                    Business application knowledge
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-shield-alt mr-2"></i>
+                                    Safety and regulatory compliance
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 border-t border-gray-200 bg-gray-50">
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Based on open source materials from Instructables, ArduPilot, and PX4
+                            </div>
+                            <button 
+                                onclick="UI.enrollInCourse(8); UI.closeDroneModules();" 
+                                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                            >
+                                Enroll in Course
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal to page
+        const modalDiv = document.createElement('div');
+        modalDiv.id = 'droneModulesModal';
+        modalDiv.innerHTML = modalContent;
+        document.body.appendChild(modalDiv);
+    },
+    
+    // Close drone modules modal
+    closeDroneModules: () => {
+        const modal = document.getElementById('droneModulesModal');
+        if (modal) {
+            modal.remove();
         }
     }
 };
