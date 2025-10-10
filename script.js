@@ -170,7 +170,7 @@ const AppData = {
             duration: 15,
             icon: 'fas fa-helicopter',
             source: 'AI Business Academy Original',
-            sourceUrl: '#',
+            sourceUrl: 'https://instructables.com/drone-building',
             instructor: 'AI Business Academy',
             rating: 4.8,
             lessons: [
