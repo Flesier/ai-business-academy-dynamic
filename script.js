@@ -1046,13 +1046,7 @@ const UI = {
         });
         
         document.getElementById('exploreDroneBtn')?.addEventListener('click', () => {
-            Utils.scrollToElement('courses');
-            // Filter to show drone course
-            const difficultyFilter = document.getElementById('difficultyFilter');
-            if (difficultyFilter) {
-                difficultyFilter.value = 'Advanced';
-                difficultyFilter.dispatchEvent(new Event('change'));
-            }
+            window.location.href = 'drone-course.html';
         });
         
         document.getElementById('getStartedBtn')?.addEventListener('click', () => {
@@ -1191,6 +1185,11 @@ const UI = {
                 Utils.showNotification(error.message, 'error');
             }
         }
+    },
+    
+    // Show drone modules detail page
+    showDroneModules: () => {
+        window.location.href = 'drone-course.html';
     },
     
     // Send chat message

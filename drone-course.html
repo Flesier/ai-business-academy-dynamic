@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Drone Development Course - AI Business Academy</title>
+    <meta name="description" content="Master drone building, programming, and business applications. Comprehensive 27-hour course from components to autonomous flight systems.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fas fa-brain text-blue-600 text-2xl"></i>
+                        <span class="text-xl font-bold text-gray-900">AI Business Academy</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#home" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="index.html#courses" class="text-gray-700 hover:text-blue-600 transition-colors">Courses</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+                    <button id="enrollDroneBtn" class="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors font-semibold">
+                        Enroll Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 bg-gradient-to-br from-blue-900 via-blue-700 to-orange-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <div class="inline-block bg-white bg-opacity-20 rounded-full p-4 mb-6">
+                    <i class="fas fa-helicopter text-6xl text-orange-300"></i>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    DIY Drone Development & Business Applications
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
+                    Build, program, and operate custom drones from scratch. Master professional-grade techniques and create profitable drone-based businesses.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <div class="bg-white bg-opacity-20 rounded-lg px-6 py-3">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span class="font-semibold">27 Hours</span>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg px-6 py-3">
+                        <i class="fas fa-layer-group mr-2"></i>
+                        <span class="font-semibold">9 Modules</span>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg px-6 py-3">
+                        <i class="fas fa-star mr-2"></i>
+                        <span class="font-semibold">Advanced Level</span>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg px-6 py-3">
+                        <i class="fas fa-certificate mr-2"></i>
+                        <span class="font-semibold">Certificate</span>
+                    </div>
+                </div>
+                <button class="bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-700 transition-all transform hover:scale-105">
+                    Start Learning Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Overview -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">What You'll Learn</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-700">Build custom drones from individual components with professional-grade assembly techniques</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-700">Configure and program flight controllers using ArduPilot and PX4 open-source platforms</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-700">Master autonomous flight programming and complex mission planning</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-700">Integrate advanced features like FPV systems, telemetry, and companion computers</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-700">Develop profitable drone business models and understand regulatory compliance</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Course Highlights</h2>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-blue-900 mb-2">
+                                <i class="fas fa-tools mr-2"></i>Hands-On Projects
+                            </h3>
+                            <p class="text-blue-800 text-sm">Build a complete quadcopter from scratch with step-by-step guidance</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-orange-900 mb-2">
+                                <i class="fas fa-code mr-2"></i>Programming Skills
+                            </h3>
+                            <p class="text-orange-800 text-sm">Learn to program autonomous missions and develop custom applications</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-green-900 mb-2">
+                                <i class="fas fa-briefcase mr-2"></i>Business Applications
+                            </h3>
+                            <p class="text-green-800 text-sm">Explore commercial opportunities in aerial photography, surveying, and more</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-purple-900 mb-2">
+                                <i class="fas fa-shield-alt mr-2"></i>Safety & Compliance
+                            </h3>
+                            <p class="text-purple-800 text-sm">Master FAA regulations and prepare for Part 107 certification</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Modules -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Course Curriculum
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    9 comprehensive modules covering everything from basics to advanced business applications
+                </p>
+            </div>
+            
+            <div id="droneModulesList" class="space-y-6">
+                <!-- Modules will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    Learning Resources
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Access curated open-source resources and community support
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <i class="fas fa-book text-3xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Documentation</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive guides from ArduPilot and PX4 communities</p>
+                    <a href="https://ardupilot.org/copter/" target="_blank" class="text-blue-600 hover:text-blue-700 font-medium">
+                        Explore ArduPilot Docs <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <i class="fas fa-users text-3xl text-orange-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Community</h3>
+                    <p class="text-gray-600 mb-4">Join thousands of drone enthusiasts and developers</p>
+                    <a href="https://discuss.ardupilot.org/" target="_blank" class="text-orange-600 hover:text-orange-700 font-medium">
+                        Join Community <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <i class="fas fa-video text-3xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tutorials</h3>
+                    <p class="text-gray-600 mb-4">Step-by-step video guides and build tutorials</p>
+                    <a href="https://www.instructables.com/circuits/technology/drones/" target="_blank" class="text-green-600 hover:text-green-700 font-medium">
+                        Watch Tutorials <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-orange-600 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Build Your First Drone?
+            </h2>
+            <p class="text-xl mb-8 text-blue-100">
+                Join thousands of students mastering drone technology and building profitable businesses
+            </p>
+            <button class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg rounded-lg font-semibold transition-all transform hover:scale-105">
+                Enroll in DIY Drone Course
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">
+                    © 2024 AI Business Academy. All rights reserved.
+                </p>
+                <p class="text-sm text-gray-500">
+                    Course content curated from open-source resources including ArduPilot, PX4, and Instructables.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollmentModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Enroll in Course</h2>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="enrollmentForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Full Name</label>
+                    <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Email Address</label>
+                    <input type="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Experience Level</label>
+                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option>Complete Beginner</option>
+                        <option>Some Electronics Experience</option>
+                        <option>Intermediate Maker</option>
+                        <option>Advanced Builder</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors">
+                    Complete Enrollment
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Load drone course script -->
+    <script src="script.js"></script>
+    <script src="drone-course-detail.js"></script>
+</body>
+</html>
