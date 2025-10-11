@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AI Business Academy</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">AI Academy Admin</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <span>☰</span>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#overview" class="nav-item active" data-section="overview">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Overview</span>
+            </a>
+            <a href="#users" class="nav-item" data-section="users">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">Users</span>
+            </a>
+            <a href="#courses" class="nav-item" data-section="courses">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">Courses</span>
+            </a>
+            <a href="#analytics" class="nav-item" data-section="analytics">
+                <span class="nav-icon">📈</span>
+                <span class="nav-text">Analytics</span>
+            </a>
+            <a href="#content" class="nav-item" data-section="content">
+                <span class="nav-icon">✏️</span>
+                <span class="nav-text">Content</span>
+            </a>
+            <a href="#settings" class="nav-item" data-section="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="admin-profile">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <div class="admin-name">Admin User</div>
+                    <div class="admin-role">Administrator</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <span>🚪</span> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <h1 class="page-title" id="pageTitle">Dashboard Overview</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search..." id="globalSearch">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <button class="notification-btn" id="notificationBtn">
+                    <span>🔔</span>
+                    <span class="notification-badge">3</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Overview Section -->
+        <section class="dashboard-section active" id="overviewSection">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        👥
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Users</div>
+                        <div class="stat-value" id="totalUsers">1,250</div>
+                        <div class="stat-change positive">
+                            <span>↑</span> 12% from last month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        📚
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Enrollments</div>
+                        <div class="stat-value" id="totalEnrollments">3,420</div>
+                        <div class="stat-change positive">
+                            <span>↑</span> 18% from last month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        ✅
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Completions</div>
+                        <div class="stat-value" id="totalCompletions">1,180</div>
+                        <div class="stat-change positive">
+                            <span>↑</span> 8% from last month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        ⚡
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Active Students</div>
+                        <div class="stat-value" id="activeStudents">890</div>
+                        <div class="stat-change positive">
+                            <span>↑</span> 15% from last month
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Enrollment Trends</h3>
+                        <select class="chart-filter">
+                            <option>Last 6 Months</option>
+                            <option>Last Year</option>
+                            <option>All Time</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="enrollmentChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Popular Courses</h3>
+                        <select class="chart-filter">
+                            <option>By Enrollments</option>
+                            <option>By Completions</option>
+                            <option>By Rating</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="popularCoursesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <h3>Recent Activity</h3>
+                    <button class="view-all-btn">View All</button>
+                </div>
+                <div class="activity-list" id="activityList">
+                    <!-- Activity items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section class="dashboard-section" id="usersSection">
+            <div class="section-header">
+                <h2>User Management</h2>
+                <div class="section-actions">
+                    <button class="btn-secondary" id="exportUsersBtn">📥 Export</button>
+                    <button class="btn-primary" id="addUserBtn">➕ Add User</button>
+                </div>
+            </div>
+
+            <div class="filters-bar">
+                <input type="text" class="filter-input" id="userSearch" placeholder="Search users...">
+                <select class="filter-select" id="roleFilter">
+                    <option value="">All Roles</option>
+                    <option value="student">Students</option>
+                    <option value="admin">Admins</option>
+                </select>
+                <select class="filter-select" id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Enrolled Courses</th>
+                            <th>Progress</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- User rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="usersPagination">
+                <button class="pagination-btn">← Previous</button>
+                <span class="pagination-info">Page 1 of 10</span>
+                <button class="pagination-btn">Next →</button>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section class="dashboard-section" id="coursesSection">
+            <div class="section-header">
+                <h2>Course Management</h2>
+                <div class="section-actions">
+                    <button class="btn-secondary" id="importCourseBtn">📥 Import</button>
+                    <button class="btn-primary" id="addCourseBtn">➕ Add Course</button>
+                </div>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Course cards will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section class="dashboard-section" id="analyticsSection">
+            <div class="section-header">
+                <h2>Analytics & Reports</h2>
+                <div class="section-actions">
+                    <button class="btn-secondary" id="generateReportBtn">📄 Generate Report</button>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>Completion Rate by Course</h3>
+                    <div class="chart-container">
+                        <canvas id="completionRateChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3>User Engagement</h3>
+                    <div class="chart-container">
+                        <canvas id="engagementChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3>Learning Hours Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="learningHoursChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3>Monthly Growth</h3>
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="dashboard-section" id="contentSection">
+            <div class="section-header">
+                <h2>Content Management</h2>
+            </div>
+
+            <div class="content-tabs">
+                <button class="tab-btn active" data-tab="modules">Course Modules</button>
+                <button class="tab-btn" data-tab="resources">Resources</button>
+                <button class="tab-btn" data-tab="announcements">Announcements</button>
+            </div>
+
+            <div class="tab-content active" id="modulesTab">
+                <div class="modules-list" id="modulesList">
+                    <!-- Modules will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="resourcesTab">
+                <div class="resources-list" id="resourcesList">
+                    <!-- Resources will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="announcementsTab">
+                <div class="announcements-list" id="announcementsList">
+                    <!-- Announcements will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="dashboard-section" id="settingsSection">
+            <div class="section-header">
+                <h2>Settings</h2>
+            </div>
+
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3>Platform Settings</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>Platform Name</label>
+                            <input type="text" value="AI Business Academy" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Support Email</label>
+                            <input type="email" value="support@aiacademy.com" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Timezone</label>
+                            <select class="form-input">
+                                <option>UTC</option>
+                                <option>EST</option>
+                                <option>PST</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Email Notifications</h3>
+                    <div class="settings-form">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enrollmentNotif" checked>
+                            <label for="enrollmentNotif">New Enrollment Notifications</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="completionNotif" checked>
+                            <label for="completionNotif">Course Completion Notifications</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="feedbackNotif">
+                            <label for="feedbackNotif">User Feedback Notifications</label>
+                        </div>
+                        <button class="btn-primary">Save Preferences</button>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Security</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>Session Timeout (minutes)</label>
+                            <input type="number" value="30" class="form-input">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="twoFactor">
+                            <label for="twoFactor">Enable Two-Factor Authentication</label>
+                        </div>
+                        <button class="btn-primary">Update Security</button>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Backup & Restore</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>Last Backup</label>
+                            <p class="form-text">October 9, 2025 at 2:30 AM</p>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn-secondary">📥 Backup Now</button>
+                            <button class="btn-secondary">📤 Restore</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Details</h3>
+                <button class="modal-close" onclick="closeModal('userModal')">×</button>
+            </div>
+            <div class="modal-body" id="userModalBody">
+                <!-- User details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="courseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Course Details</h3>
+                <button class="modal-close" onclick="closeModal('courseModal')">×</button>
+            </div>
+            <div class="modal-body" id="courseModalBody">
+                <!-- Course details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Protect admin page - require admin role
+        AuthSystem.requireAuth();
+        AuthSystem.requireAdmin();
+        
+        // Update admin profile info
+        const user = AuthSystem.getCurrentUser();
+        if (user) {
+            document.querySelector('.admin-name').textContent = user.name;
+            document.querySelector('.admin-avatar').textContent = user.avatar;
+        }
+    </script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
+

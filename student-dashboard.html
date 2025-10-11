@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - AI Business Academy</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">AI Business Academy</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <span>☰</span>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            <a href="#my-courses" class="nav-item" data-section="my-courses">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">My Courses</span>
+            </a>
+            <a href="#progress" class="nav-item" data-section="progress">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Progress</span>
+            </a>
+            <a href="#browse" class="nav-item" data-section="browse">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-text">Browse Courses</span>
+            </a>
+            <a href="#certificates" class="nav-item" data-section="certificates">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-text">Certificates</span>
+            </a>
+            <a href="#profile" class="nav-item" data-section="profile">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Profile</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="admin-profile">
+                <div class="admin-avatar">J</div>
+                <div class="admin-info">
+                    <div class="admin-name">John Doe</div>
+                    <div class="admin-role">Student</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <span>🚪</span> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <h1 class="page-title" id="pageTitle">My Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <button class="ai-mentor-btn" id="aiMentorBtn">
+                    <span>🤖</span> AI Mentor
+                </button>
+                <button class="notification-btn" id="notificationBtn">
+                    <span>🔔</span>
+                    <span class="notification-badge">2</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section class="dashboard-section active" id="dashboardSection">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <h2>Welcome back, John! 👋</h2>
+                    <p>You're making great progress. Keep up the excellent work!</p>
+                </div>
+                <div class="welcome-stats">
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-value" id="learningStreak">7</div>
+                        <div class="welcome-stat-label">Day Streak 🔥</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-value" id="totalHours">45.5</div>
+                        <div class="welcome-stat-label">Hours Learned</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-value" id="coursesCompleted">2</div>
+                        <div class="welcome-stat-label">Courses Done</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue Learning -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>Continue Learning</h3>
+                </div>
+                <div class="continue-learning-card" id="continueCard">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- My Courses Overview -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>My Courses</h3>
+                    <a href="#my-courses" class="view-all-link" onclick="switchToSection('my-courses')">View All →</a>
+                </div>
+                <div class="courses-quick-grid" id="coursesQuickGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Learning Progress -->
+            <div class="progress-overview">
+                <div class="progress-card">
+                    <h3>This Week's Progress</h3>
+                    <div class="progress-chart" id="weeklyProgressChart">
+                        <!-- Chart will be rendered here -->
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <h3>Achievements</h3>
+                    <div class="achievements-list" id="achievementsList">
+                        <!-- Achievements will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Courses -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>Recommended for You</h3>
+                </div>
+                <div class="recommended-grid" id="recommendedGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- My Courses Section -->
+        <section class="dashboard-section" id="my-coursesSection">
+            <div class="section-header">
+                <h2>My Courses</h2>
+                <div class="course-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="not-started">Not Started</button>
+                </div>
+            </div>
+
+            <div class="my-courses-grid" id="myCoursesGrid">
+                <!-- Courses will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="dashboard-section" id="progressSection">
+            <div class="section-header">
+                <h2>Learning Progress</h2>
+            </div>
+
+            <div class="progress-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        📚
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Enrolled Courses</div>
+                        <div class="stat-value">5</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        ✅
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Completed</div>
+                        <div class="stat-value">2</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        ⏱️
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Hours</div>
+                        <div class="stat-value">45.5</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        🎯
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Avg. Progress</div>
+                        <div class="stat-value">68%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detailed-progress">
+                <h3>Course-by-Course Progress</h3>
+                <div class="progress-list" id="progressList">
+                    <!-- Progress items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Courses Section -->
+        <section class="dashboard-section" id="browseSection">
+            <div class="section-header">
+                <h2>Browse All Courses</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="Search courses..." id="courseSearch">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+
+            <div class="browse-filters">
+                <select class="filter-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="entrepreneurship">Entrepreneurship</option>
+                    <option value="finance">Finance</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="technology">Technology</option>
+                </select>
+                <select class="filter-select" id="levelFilter">
+                    <option value="">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+
+            <div class="browse-grid" id="browseGrid">
+                <!-- Courses will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section class="dashboard-section" id="certificatesSection">
+            <div class="section-header">
+                <h2>My Certificates</h2>
+            </div>
+
+            <div class="certificates-grid" id="certificatesGrid">
+                <!-- Certificates will be populated by JavaScript -->
+            </div>
+
+            <div class="empty-state" id="emptyCertificates" style="display: none;">
+                <div class="empty-icon">🏆</div>
+                <h3>No Certificates Yet</h3>
+                <p>Complete courses to earn certificates and showcase your achievements!</p>
+                <button class="btn-primary" onclick="switchToSection('browse')">Browse Courses</button>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="dashboard-section" id="profileSection">
+            <div class="section-header">
+                <h2>My Profile</h2>
+            </div>
+
+            <div class="profile-grid">
+                <div class="profile-card">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar-large">J</div>
+                        <button class="btn-secondary">Change Avatar</button>
+                    </div>
+                    <div class="profile-info-section">
+                        <h3>Personal Information</h3>
+                        <div class="profile-form">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" class="form-input" value="John Doe" id="profileName">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-input" value="john@example.com" id="profileEmail">
+                            </div>
+                            <div class="form-group">
+                                <label>Bio</label>
+                                <textarea class="form-input" rows="3" id="profileBio">Aspiring entrepreneur learning business fundamentals and drone technology.</textarea>
+                            </div>
+                            <button class="btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Learning Preferences</h3>
+                    <div class="profile-form">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="emailNotifications" checked>
+                            <label for="emailNotifications">Email notifications for new courses</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="progressUpdates" checked>
+                            <label for="progressUpdates">Weekly progress updates</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="aiRecommendations" checked>
+                            <label for="aiRecommendations">AI-powered course recommendations</label>
+                        </div>
+                        <button class="btn-primary">Save Preferences</button>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Account Security</h3>
+                    <div class="profile-form">
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" class="form-input" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-input" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" class="form-input" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn-primary">Update Password</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Mentor Modal -->
+    <div class="modal" id="aiMentorModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>🤖 AI Business Mentor</h3>
+                <button class="modal-close" onclick="closeModal('aiMentorModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message bot-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p>Hello! I'm your AI Business Mentor. I can help you with:</p>
+                                <ul>
+                                    <li>Course recommendations</li>
+                                    <li>Business strategy questions</li>
+                                    <li>Drone technology guidance</li>
+                                    <li>Learning path suggestions</li>
+                                </ul>
+                                <p>What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything...">
+                        <button class="chat-send-btn" id="chatSendBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Detail Modal -->
+    <div class="modal" id="courseDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Course Details</h3>
+                <button class="modal-close" onclick="closeModal('courseDetailModal')">×</button>
+            </div>
+            <div class="modal-body" id="courseDetailBody">
+                <!-- Course details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Protect student page - require authentication
+        AuthSystem.requireAuth();
+        
+        // Update student profile info
+        const user = AuthSystem.getCurrentUser();
+        if (user) {
+            document.querySelector('.admin-name').textContent = user.name;
+            document.querySelector('.admin-avatar').textContent = user.avatar;
+            document.querySelector('.welcome-content h2').innerHTML = `Welcome back, ${user.name.split(' ')[0]}! 👋`;
+            
+            // Update profile fields
+            const profileName = document.getElementById('profileName');
+            const profileEmail = document.getElementById('profileEmail');
+            if (profileName) profileName.value = user.name;
+            if (profileEmail) profileEmail.value = user.email;
+        }
+    </script>
+    <script src="student-dashboard.js"></script>
+</body>
+</html>
+
