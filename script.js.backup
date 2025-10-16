@@ -1176,24 +1176,15 @@ const UI = {
     enrollInCourse: (courseId) => {
         try {
             CourseManager.enrollInCourse(courseId);
-            Utils.showNotification('Successfully enrolled! Redirecting to your dashboard...', 'success');
-            
-            // Redirect to student dashboard after 1.5 seconds
-            setTimeout(() => {
-                window.location.href = 'student-dashboard.html';
-            }, 1500);
+            Utils.showNotification('Successfully enrolled in course!', 'success');
+            UI.loadCourses(); // Refresh course display
         } catch (error) {
             if (error.message.includes('log in')) {
-                // Show login modal if not logged in
-                Utils.showNotification('Please log in to enroll in courses', 'info');
-                setTimeout(() => {
-                    UI.showModal('loginModal');
-                }, 500);
+                UI.showModal('loginModal');
             } else {
                 Utils.showNotification(error.message, 'error');
             }
         }
-
     },
     
     // Show drone modules detail page

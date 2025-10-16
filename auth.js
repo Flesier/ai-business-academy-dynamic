@@ -83,12 +83,12 @@ const AuthSystem = {
     // Route to appropriate dashboard
     routeToDashboard() {
         const user = this.getCurrentUser();
-
+        
         if (!user) {
             window.location.href = 'index.html';
             return;
         }
-
+        
         if (user.role === 'admin') {
             window.location.href = 'admin-dashboard.html';
         } else {
@@ -194,30 +194,32 @@ function setupSignupModal() {
     if (signupForm) {
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const name = `${firstName} ${lastName}`.trim();
-
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showAuthNotification('Passwords do not match', 'error');
+                return;
+            }
+            
             const result = AuthSystem.register(name, email, password);
-
+            
             if (result.success) {
                 // Close modal
                 if (signupModal) {
                     signupModal.classList.add('hidden');
                     signupModal.classList.remove('flex');
                 }
-
+                
                 // Show success message
                 showAuthNotification('Registration successful! Redirecting...', 'success');
-
+                
                 // Redirect to student dashboard
                 setTimeout(() => {
-                    AuthSystem.routeToDashboard();
+                    window.location.href = 'student-dashboard.html';
                 }, 1000);
             } else {
                 showAuthNotification(result.message || 'Registration failed', 'error');
@@ -273,3 +275,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export for use in other scripts
 window.AuthSystem = AuthSystem;
+

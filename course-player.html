@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Player - AI Business Academy</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <style>
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .module-item {
+            transition: all 0.3s ease;
+        }
+        
+        .module-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .module-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .module-item.completed {
+            opacity: 0.7;
+        }
+        
+        .content-section {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="student-dashboard.html" class="flex items-center">
+                        <i class="fas fa-arrow-left text-gray-600 mr-3"></i>
+                        <span class="text-lg font-semibold text-gray-800">Back to Dashboard</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm text-gray-600">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span id="courseProgress">0%</span> Complete
+                    </div>
+                    <button onclick="toggleFullscreen()" class="p-2 rounded hover:bg-gray-100">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Course Content (Left Side) -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <!-- Course Header -->
+                    <div class="bg-gradient-to-r from-purple-600 to-blue-600 p-6 text-white">
+                        <h1 id="courseTitle" class="text-2xl font-bold mb-2">Loading Course...</h1>
+                        <p id="courseInstructor" class="text-purple-100">Instructor Name</p>
+                    </div>
+
+                    <!-- Video/Content Area -->
+                    <div class="p-6">
+                        <div id="contentArea" class="content-section">
+                            <!-- Content will be loaded here -->
+                            <div class="text-center py-12">
+                                <i class="fas fa-spinner fa-spin text-4xl text-purple-600 mb-4"></i>
+                                <p class="text-gray-600">Loading course content...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Module Details -->
+                    <div id="moduleDetails" class="p-6 border-t border-gray-200 bg-gray-50">
+                        <!-- Module details will be loaded here -->
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="p-6 border-t border-gray-200 flex justify-between items-center">
+                        <button id="prevBtn" onclick="previousModule()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            Previous
+                        </button>
+                        <button id="completeBtn" onclick="markComplete()" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            <i class="fas fa-check mr-2"></i>
+                            Mark Complete
+                        </button>
+                        <button id="nextBtn" onclick="nextModule()" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            Next
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Modules Sidebar (Right Side) -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden sticky top-20">
+                    <div class="bg-gradient-to-r from-purple-600 to-blue-600 p-4 text-white">
+                        <h2 class="text-lg font-bold">Course Modules</h2>
+                        <div class="mt-2">
+                            <div class="w-full bg-purple-800 rounded-full h-2">
+                                <div id="progressBar" class="bg-white h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modulesList" class="max-h-[600px] overflow-y-auto">
+                        <!-- Modules will be loaded here -->
+                        <div class="p-4 text-center text-gray-500">
+                            <i class="fas fa-spinner fa-spin mb-2"></i>
+                            <p>Loading modules...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Check authentication
+        if (!isAuthenticated()) {
+            window.location.href = 'index.html';
+        }
+
+        // Get course ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = parseInt(urlParams.get('id')) || 8; // Default to drone course
+        
+        let currentModuleIndex = 0;
+        let courseData = null;
+        let completedModules = [];
+
+        // Course data (same as in other files)
+        const courses = {
+            8: {
+                id: 8,
+                title: "DIY Drone Development",
+                instructor: "Expert Instructors from ArduPilot & PX4 Communities",
+                description: "Build and program your own professional drone from scratch",
+                duration: "27 hours",
+                modules: [
+                    {
+                        id: 1,
+                        title: "Introduction to Drone Technology",
+                        duration: "3 hours",
+                        topics: ["What is a drone?", "Types of drones", "Applications", "Basic physics of flight", "Safety fundamentals"],
+                        learningObjectives: ["Understand drone fundamentals", "Identify different drone types", "Learn basic flight physics"],
+                        practicalExercise: "Research and present on a specific drone application"
+                    },
+                    {
+                        id: 2,
+                        title: "Component Selection and Understanding",
+                        duration: "3 hours",
+                        topics: ["Frame types and materials", "Motor specifications", "ESCs (Electronic Speed Controllers)", "Propellers", "Battery selection"],
+                        learningObjectives: ["Select appropriate components", "Understand component specifications", "Calculate power requirements"],
+                        practicalExercise: "Create a component list for your drone build"
+                    },
+                    {
+                        id: 3,
+                        title: "Assembly and Construction",
+                        duration: "4 hours",
+                        topics: ["Frame assembly", "Motor mounting", "ESC installation", "Wiring and soldering", "Cable management"],
+                        learningObjectives: ["Assemble drone frame", "Install motors and ESCs", "Perform basic soldering"],
+                        practicalExercise: "Complete physical assembly of your drone"
+                    },
+                    {
+                        id: 4,
+                        title: "Flight Controller Setup",
+                        duration: "3 hours",
+                        topics: ["Flight controller basics", "Firmware installation", "Sensor calibration", "Radio setup", "Initial configuration"],
+                        learningObjectives: ["Install and configure flight controller", "Calibrate sensors", "Set up radio control"],
+                        practicalExercise: "Configure flight controller using ArduPilot or PX4"
+                    },
+                    {
+                        id: 5,
+                        title: "Programming and Autonomous Flight",
+                        duration: "4 hours",
+                        topics: ["Mission planning", "Waypoint navigation", "Return-to-home", "Geofencing", "Failsafe configuration"],
+                        learningObjectives: ["Program autonomous missions", "Configure safety features", "Implement failsafes"],
+                        practicalExercise: "Create and simulate an autonomous mission"
+                    },
+                    {
+                        id: 6,
+                        title: "Testing and Calibration",
+                        duration: "3 hours",
+                        topics: ["Pre-flight checks", "Motor testing", "PID tuning", "Flight modes", "Troubleshooting"],
+                        learningObjectives: ["Perform pre-flight checks", "Tune PID controllers", "Troubleshoot issues"],
+                        practicalExercise: "Complete full system test and calibration"
+                    },
+                    {
+                        id: 7,
+                        title: "Advanced Features",
+                        duration: "3 hours",
+                        topics: ["FPV systems", "Telemetry", "GPS modules", "Camera gimbals", "Advanced sensors"],
+                        learningObjectives: ["Install FPV system", "Configure telemetry", "Add advanced sensors"],
+                        practicalExercise: "Integrate one advanced feature into your drone"
+                    },
+                    {
+                        id: 8,
+                        title: "Regulations and Safety",
+                        duration: "2 hours",
+                        topics: ["FAA regulations", "Registration requirements", "Airspace restrictions", "Safety protocols", "Insurance"],
+                        learningObjectives: ["Understand drone regulations", "Complete registration process", "Follow safety protocols"],
+                        practicalExercise: "Complete drone registration and create safety checklist"
+                    },
+                    {
+                        id: 9,
+                        title: "Business Applications",
+                        duration: "2 hours",
+                        topics: ["Commercial opportunities", "Aerial photography", "Surveying and mapping", "Inspection services", "Starting a drone business"],
+                        learningObjectives: ["Identify business opportunities", "Understand market potential", "Plan drone service business"],
+                        practicalExercise: "Develop a business plan for drone services"
+                    }
+                ]
+            },
+            1: {
+                id: 1,
+                title: "New Enterprises",
+                instructor: "MIT Faculty",
+                description: "Learn how to start and grow successful businesses",
+                duration: "12 hours",
+                modules: [
+                    {
+                        id: 1,
+                        title: "Introduction to Entrepreneurship",
+                        duration: "2 hours",
+                        topics: ["What is entrepreneurship?", "Entrepreneurial mindset", "Opportunity recognition"],
+                        learningObjectives: ["Understand entrepreneurship fundamentals", "Develop entrepreneurial thinking"],
+                        practicalExercise: "Identify 3 business opportunities in your area"
+                    }
+                ]
+            }
+        };
+
+        // Load course
+        function loadCourse() {
+            courseData = courses[courseId];
+            if (!courseData) {
+                document.getElementById('contentArea').innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-exclamation-triangle text-4xl text-red-600 mb-4"></i>
+                        <p class="text-gray-600">Course not found. Redirecting to dashboard...</p>
+                    </div>
+                `;
+                setTimeout(() => {
+                    window.location.href = 'student-dashboard.html';
+                }, 2000);
+                return;
+            }
+
+            // Update course header
+            document.getElementById('courseTitle').textContent = courseData.title;
+            document.getElementById('courseInstructor').textContent = courseData.instructor;
+
+            // Load modules list
+            loadModulesList();
+
+            // Load first module
+            loadModule(0);
+        }
+
+        // Load modules list
+        function loadModulesList() {
+            const modulesList = document.getElementById('modulesList');
+            modulesList.innerHTML = courseData.modules.map((module, index) => `
+                <div class="module-item p-4 border-b border-gray-200 cursor-pointer ${index === currentModuleIndex ? 'active' : ''} ${completedModules.includes(index) ? 'completed' : ''}"
+                     onclick="loadModule(${index})">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            ${completedModules.includes(index) 
+                                ? '<i class="fas fa-check-circle text-green-500"></i>'
+                                : `<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-200 text-sm">${index + 1}</span>`
+                            }
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-sm mb-1">${module.title}</h3>
+                            <p class="text-xs text-gray-500">${module.duration}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updateProgress();
+        }
+
+        // Load specific module
+        function loadModule(index) {
+            if (index < 0 || index >= courseData.modules.length) return;
+
+            currentModuleIndex = index;
+            const module = courseData.modules[index];
+
+            // Update content area
+            document.getElementById('contentArea').innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Module ${index + 1}: ${module.title}</h2>
+                    <p class="text-gray-600"><i class="fas fa-clock mr-2"></i>${module.duration}</p>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                    <h3 class="text-lg font-semibold text-blue-900 mb-3">📚 What You'll Learn</h3>
+                    <ul class="space-y-2">
+                        ${module.learningObjectives.map(obj => `
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-blue-600 mr-2 mt-1"></i>
+                                <span class="text-blue-800">${obj}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">📖 Topics Covered</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${module.topics.map(topic => `
+                            <div class="flex items-start bg-gray-50 p-3 rounded">
+                                <i class="fas fa-book text-purple-600 mr-2 mt-1"></i>
+                                <span class="text-gray-700">${topic}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-900 mb-3">🛠️ Practical Exercise</h3>
+                    <p class="text-green-800">${module.practicalExercise}</p>
+                </div>
+            `;
+
+            // Update module details
+            document.getElementById('moduleDetails').innerHTML = `
+                <h3 class="font-semibold text-gray-800 mb-3">Additional Resources</h3>
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center text-purple-600 hover:text-purple-700">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        Module ${index + 1} Notes (PDF)
+                    </a>
+                    <a href="#" class="flex items-center text-purple-600 hover:text-purple-700">
+                        <i class="fas fa-link mr-2"></i>
+                        External Resources
+                    </a>
+                    <a href="#" class="flex items-center text-purple-600 hover:text-purple-700">
+                        <i class="fas fa-comments mr-2"></i>
+                        Discussion Forum
+                    </a>
+                </div>
+            `;
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === courseData.modules.length - 1;
+
+            // Update modules list
+            loadModulesList();
+        }
+
+        // Mark module as complete
+        function markComplete() {
+            if (!completedModules.includes(currentModuleIndex)) {
+                completedModules.push(currentModuleIndex);
+                showNotification('Module marked as complete!', 'success');
+                loadModulesList();
+                
+                // Auto-advance to next module
+                if (currentModuleIndex < courseData.modules.length - 1) {
+                    setTimeout(() => {
+                        nextModule();
+                    }, 1000);
+                }
+            } else {
+                showNotification('Module already completed', 'info');
+            }
+        }
+
+        // Navigation functions
+        function previousModule() {
+            if (currentModuleIndex > 0) {
+                loadModule(currentModuleIndex - 1);
+            }
+        }
+
+        function nextModule() {
+            if (currentModuleIndex < courseData.modules.length - 1) {
+                loadModule(currentModuleIndex + 1);
+            }
+        }
+
+        // Update progress
+        function updateProgress() {
+            const progress = (completedModules.length / courseData.modules.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('courseProgress').textContent = Math.round(progress) + '%';
+        }
+
+        // Toggle fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 
+                'bg-blue-500'
+            } text-white`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCourse();
+        });
+    </script>
+</body>
+</html>
+
