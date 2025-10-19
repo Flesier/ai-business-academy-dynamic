@@ -760,7 +760,8 @@ document.addEventListener('click', (e) => {
 // Logout
 function handleLogout() {
     if (confirm('Are you sure you want to logout?')) {
-        AuthSystem.logout();
+        localStorage.removeItem('userSession');
+        window.location.href = 'index.html';
     }
 }
 
@@ -812,3 +813,4 @@ window.downloadCertificate = downloadCertificate;
 window.shareCertificate = shareCertificate;
 window.closeModal = closeModal;
 window.switchToSection = switchToSection;
+

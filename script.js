@@ -376,8 +376,40 @@ const AppData = {
                 'Business Applications',
                 'Regulations and Safety'
             ]
-        }],
-    
+        },
+
+        {
+            id: 9,
+            title: 'Incubator Auditors & Certification System',
+            description: 'Master the art of auditing and certifying business incubators. Learn quality assurance frameworks, evaluation methodologies, and certification standards for incubation systems.',
+            category: 'Incubation & Auditing',
+            difficulty: 'Advanced',
+            duration: 24,
+            icon: 'fas fa-certificate',
+            source: 'AI Business Academy',
+            sourceUrl: '#',
+            instructor: 'AI Business Academy Faculty',
+            rating: 4.9,
+            isNative: true,
+            lessons: [
+                'Introduction to Incubation Systems',
+                'Quality Assurance Frameworks',
+                'Auditor Training Program',
+                'Auditor Responsibilities',
+                'Three-Level Certification System',
+                'Level 1: Foundation Level Certification',
+                'Level 2: Strong Performance Certification',
+                'Level 3: Top Level Effectiveness Certification',
+                'Conducting Effective Audits',
+                'Incubatee Support Evaluation',
+                'Improvement Recommendations',
+                'Compliance and Standards Management',
+                'Case Studies and Best Practices'
+            ]
+        }
+
+    ],
+
     curriculumSteps: [
         {
             number: 1,

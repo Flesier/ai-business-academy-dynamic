@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Africa Think Tank Consortium - AI Business Academy</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .expert-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .expert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .expert-placeholder {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-brain text-3xl text-purple-600"></i>
+                    <span class="text-2xl font-bold text-gray-800">AI Business Academy</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-purple-600 transition">Home</a>
+                    <a href="index.html#courses" class="text-gray-600 hover:text-purple-600 transition">Courses</a>
+                    <a href="africa-think-tank.html" class="text-purple-600 font-semibold">Africa Think Tank</a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-purple-600 transition">About</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-purple-600 transition">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='index.html'" class="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">
+                        Back to Academy
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <i class="fas fa-users-cog mr-4"></i>
+                    Africa Think Tank Consortium
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-purple-100">
+                    Connecting Africa's brightest minds to drive innovation, entrepreneurship, and sustainable development across the continent
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-lg">
+                    <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+                        <i class="fas fa-globe-africa mr-2"></i>
+                        Pan-African Network
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Innovation Leaders
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+                        <i class="fas fa-handshake mr-2"></i>
+                        Collaborative Solutions
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-6 section-title">Our Mission</h2>
+                <p class="text-xl text-gray-700 leading-relaxed mb-8">
+                    The Africa Think Tank Consortium brings together diverse experts, thought leaders, and practitioners 
+                    from across Africa to address critical challenges in entrepreneurship, innovation, and economic development. 
+                    We foster collaboration, share knowledge, and develop actionable solutions for Africa's future.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 mt-12">
+                    <div class="p-6 bg-purple-50 rounded-xl">
+                        <i class="fas fa-brain text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Thought Leadership</h3>
+                        <p class="text-gray-600">Driving innovative thinking and strategic solutions for African challenges</p>
+                    </div>
+                    <div class="p-6 bg-purple-50 rounded-xl">
+                        <i class="fas fa-network-wired text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Knowledge Sharing</h3>
+                        <p class="text-gray-600">Facilitating cross-border collaboration and expertise exchange</p>
+                    </div>
+                    <div class="p-6 bg-purple-50 rounded-xl">
+                        <i class="fas fa-rocket text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Impact Creation</h3>
+                        <p class="text-gray-600">Implementing practical solutions that drive measurable change</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experts Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 section-title">Our Expert Network</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Meet the diverse experts and thought leaders who make up the Africa Think Tank Consortium. 
+                    Our network spans multiple disciplines, industries, and regions across the continent.
+                </p>
+            </div>
+
+            <!-- Expert Cards Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Expert Placeholder 1 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 2 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 3 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 4 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 5 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 6 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 7 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 8 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Placeholder 9 -->
+                <div class="expert-card expert-placeholder rounded-2xl p-8 text-white shadow-xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-32 h-32 bg-white/30 rounded-full mb-6 flex items-center justify-center">
+                            <i class="fas fa-user text-6xl text-white/70"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Expert Name</h3>
+                        <p class="text-white/90 mb-4">Specialization Area</p>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Country, Africa</span>
+                        </div>
+                        <p class="text-sm text-white/80 mb-6">
+                            Brief bio and expertise description will be added here. Focus areas and contributions to the consortium.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-white hover:text-purple-200 transition">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="mt-16 text-center">
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-12 text-white">
+                    <h3 class="text-3xl font-bold mb-4">Join Our Expert Network</h3>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto">
+                        Are you an African expert, thought leader, or practitioner interested in joining the consortium? 
+                        We welcome diverse perspectives and expertise.
+                    </p>
+                    <button class="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Express Interest
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Focus Areas Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 section-title">Focus Areas</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    The consortium addresses critical challenges across multiple domains
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                <div class="bg-purple-50 p-8 rounded-xl text-center">
+                    <i class="fas fa-seedling text-5xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Entrepreneurship</h3>
+                    <p class="text-gray-600">Supporting startup ecosystems and entrepreneurial development</p>
+                </div>
+                <div class="bg-purple-50 p-8 rounded-xl text-center">
+                    <i class="fas fa-lightbulb text-5xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Innovation</h3>
+                    <p class="text-gray-600">Driving technological and social innovation across Africa</p>
+                </div>
+                <div class="bg-purple-50 p-8 rounded-xl text-center">
+                    <i class="fas fa-chart-line text-5xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Economic Development</h3>
+                    <p class="text-gray-600">Fostering sustainable economic growth and prosperity</p>
+                </div>
+                <div class="bg-purple-50 p-8 rounded-xl text-center">
+                    <i class="fas fa-graduation-cap text-5xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Capacity Building</h3>
+                    <p class="text-gray-600">Developing skills and knowledge for the future</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">AI Business Academy</h3>
+                    <p class="text-gray-400">Empowering African entrepreneurs through education and collaboration</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">Courses</a></li>
+                        <li><a href="africa-think-tank.html" class="text-gray-400 hover:text-white transition">Think Tank</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Consortium</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Join Network</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Research</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 AI Business Academy - Africa Think Tank Consortium. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
