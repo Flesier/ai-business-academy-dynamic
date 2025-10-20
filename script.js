@@ -376,8 +376,7 @@ const AppData = {
                 'Business Applications',
                 'Regulations and Safety'
             ]
-        }],
-        ,
+        },
         {
             id: 9,
             title: 'Incubator Auditors & Certification System',
@@ -406,8 +405,7 @@ const AppData = {
                 'Compliance and Standards Management',
                 'Case Studies and Best Practices'
             ]
-        }
-        ,
+        },
         {
             id: 10,
             title: 'Logical Thinking Assessment',
@@ -436,7 +434,9 @@ const AppData = {
                 'Level 10: Master Challenge'
             ]
         }
-    
+
+    ],
+
     curriculumSteps: [
         {
             number: 1,
@@ -1262,12 +1262,7 @@ const UI = {
         }
 
     },
-    
-    // Show drone modules detail page
-    showDroneModules: () => {
-        window.location.href = 'drone-course.html';
-    },
-    
+
     // Send chat message
     sendChatMessage: async (message) => {
         const chatMessages = document.getElementById('chatMessages');
