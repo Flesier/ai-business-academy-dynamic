@@ -315,7 +315,7 @@
 
                 const levelCard = `
                     <div class="level-card ${isLocked ? 'level-locked' : ''} ${isCompleted ? 'level-completed' : ''} ${isCurrent && !isCompleted ? 'level-in-progress' : ''} bg-white rounded-xl p-6 shadow-md cursor-pointer"
-                         onclick="${isLocked ? '' : `startLevel(${level.id})`}">
+                         onclick="${isLocked ? '' : 'startLevel(' + level.id + ')'}">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4">
                                 <div class="bg-${level.color}-100 text-${level.color}-600 rounded-full p-4">
@@ -455,8 +455,7 @@
         }
 
         // Initialize on page load
-        window.addEventListener('DOMContentLoaded', init);
+        init();
     </script>
 </body>
 </html>
-
