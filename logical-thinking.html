@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical Thinking Assessment - AI Business Academy</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <style>
+        .level-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .level-card:hover {
+            transform: translateX(5px);
+            border-left-color: #3b82f6;
+        }
+        .level-locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .level-completed {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        .level-in-progress {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .challenge-option {
+            transition: all 0.2s ease;
+        }
+        .challenge-option:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .challenge-option.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .challenge-option.correct {
+            border-color: #10b981;
+            background-color: #d1fae5;
+        }
+        .challenge-option.incorrect {
+            border-color: #ef4444;
+            background-color: #fee2e2;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fas fa-brain text-blue-600 text-2xl"></i>
+                        <span class="text-xl font-bold text-gray-900">AI Business Academy</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="student-dashboard.html" class="text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-4xl font-bold mb-2">Logical Thinking Assessment</h1>
+                        <p class="text-xl opacity-90">10 Levels • Progressive Difficulty • Mandatory Prerequisite</p>
+                        <p class="mt-4 text-lg">Complete this assessment to unlock all other courses in the academy.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-6 inline-block">
+                            <i class="fas fa-brain text-6xl"></i>
+                        </div>
+                        <div class="mt-4">
+                            <div class="text-3xl font-bold" id="overallProgress">0%</div>
+                            <div class="text-sm opacity-90">Overall Progress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Levels Completed</p>
+                            <p class="text-3xl font-bold text-green-600" id="completedLevels">0/10</p>
+                        </div>
+                        <i class="fas fa-check-circle text-4xl text-green-600"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Average Score</p>
+                            <p class="text-3xl font-bold text-blue-600" id="averageScore">0%</p>
+                        </div>
+                        <i class="fas fa-star text-4xl text-blue-600"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Time Spent</p>
+                            <p class="text-3xl font-bold text-purple-600" id="timeSpent">0m</p>
+                        </div>
+                        <i class="fas fa-clock text-4xl text-purple-600"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Status</p>
+                            <p class="text-xl font-bold text-orange-600" id="assessmentStatus">In Progress</p>
+                        </div>
+                        <i class="fas fa-hourglass-half text-4xl text-orange-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Levels Grid -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+                <h2 class="text-2xl font-bold mb-6">Assessment Levels</h2>
+                <div class="space-y-4" id="levelsContainer">
+                    <!-- Levels will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Challenge Modal -->
+            <div id="challengeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="display: none;">
+                <div class="bg-white rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold" id="challengeTitle">Level Challenge</h2>
+                        <button onclick="closeChallengeModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="challengeContent">
+                        <!-- Challenge content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Logical Thinking Assessment Data
+        const levels = [
+            {
+                id: 1,
+                title: 'Level 1: Pattern Recognition Basics',
+                difficulty: 'Easy',
+                duration: 10,
+                description: 'Introduction to basic pattern recognition and sequence completion.',
+                passingScore: 70,
+                icon: 'fa-shapes',
+                color: 'blue'
+            },
+            {
+                id: 2,
+                title: 'Level 2: Memory & Attention',
+                difficulty: 'Easy',
+                duration: 12,
+                description: 'Test your memory and attention span with grid recall challenges.',
+                passingScore: 70,
+                icon: 'fa-memory',
+                color: 'green'
+            },
+            {
+                id: 3,
+                title: 'Level 3: Basic Logic Puzzles',
+                difficulty: 'Medium',
+                duration: 15,
+                description: 'Solve basic logic puzzles and deduction problems.',
+                passingScore: 75,
+                icon: 'fa-puzzle-piece',
+                color: 'yellow'
+            },
+            {
+                id: 4,
+                title: 'Level 4: Advanced Patterns',
+                difficulty: 'Medium',
+                duration: 15,
+                description: 'Identify complex patterns in numerical and visual sequences.',
+                passingScore: 75,
+                icon: 'fa-chart-line',
+                color: 'orange'
+            },
+            {
+                id: 5,
+                title: 'Level 5: Spatial Reasoning',
+                difficulty: 'Medium',
+                duration: 15,
+                description: 'Develop spatial reasoning skills through 3D visualization challenges.',
+                passingScore: 75,
+                icon: 'fa-cube',
+                color: 'purple'
+            },
+            {
+                id: 6,
+                title: 'Level 6: Complex Logic',
+                difficulty: 'Hard',
+                duration: 20,
+                description: 'Tackle complex logic problems requiring multiple steps.',
+                passingScore: 80,
+                icon: 'fa-project-diagram',
+                color: 'red'
+            },
+            {
+                id: 7,
+                title: 'Level 7: Algorithm Thinking',
+                difficulty: 'Hard',
+                duration: 20,
+                description: 'Think algorithmically to solve optimization and efficiency problems.',
+                passingScore: 80,
+                icon: 'fa-code-branch',
+                color: 'indigo'
+            },
+            {
+                id: 8,
+                title: 'Level 8: Abstract Reasoning',
+                difficulty: 'Hard',
+                duration: 20,
+                description: 'Master abstract reasoning with complex symbolic relationships.',
+                passingScore: 85,
+                icon: 'fa-atom',
+                color: 'pink'
+            },
+            {
+                id: 9,
+                title: 'Level 9: Advanced Problem Solving',
+                difficulty: 'Expert',
+                duration: 25,
+                description: 'Apply all learned skills to solve advanced multi-faceted problems.',
+                passingScore: 85,
+                icon: 'fa-lightbulb',
+                color: 'teal'
+            },
+            {
+                id: 10,
+                title: 'Level 10: Master Challenge',
+                difficulty: 'Expert',
+                duration: 30,
+                description: 'The ultimate test combining all challenge types at maximum difficulty.',
+                passingScore: 90,
+                icon: 'fa-trophy',
+                color: 'amber'
+            }
+        ];
+
+        // Load progress from localStorage
+        let progress = JSON.parse(localStorage.getItem('logicalThinkingProgress')) || {
+            completedLevels: [],
+            scores: {},
+            currentLevel: 1,
+            totalTime: 0
+        };
+
+        // Initialize the page
+        function init() {
+            renderLevels();
+            updateStats();
+        }
+
+        // Render all levels
+        function renderLevels() {
+            const container = document.getElementById('levelsContainer');
+            container.innerHTML = '';
+
+            levels.forEach((level, index) => {
+                const isCompleted = progress.completedLevels.includes(level.id);
+                const isLocked = index > 0 && !progress.completedLevels.includes(levels[index - 1].id);
+                const isCurrent = level.id === progress.currentLevel;
+
+                const difficultyColors = {
+                    'Easy': 'text-green-600 bg-green-100',
+                    'Medium': 'text-yellow-600 bg-yellow-100',
+                    'Hard': 'text-orange-600 bg-orange-100',
+                    'Expert': 'text-red-600 bg-red-100'
+                };
+
+                const levelCard = `
+                    <div class="level-card ${isLocked ? 'level-locked' : ''} ${isCompleted ? 'level-completed' : ''} ${isCurrent && !isCompleted ? 'level-in-progress' : ''} bg-white rounded-xl p-6 shadow-md cursor-pointer"
+                         onclick="${isLocked ? '' : `startLevel(${level.id})`}">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-${level.color}-100 text-${level.color}-600 rounded-full p-4">
+                                    <i class="fas ${level.icon} text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold ${isCompleted || isCurrent ? 'text-white' : 'text-gray-900'}">${level.title}</h3>
+                                    <p class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} mt-1">${level.description}</p>
+                                    <div class="flex items-center space-x-4 mt-2">
+                                        <span class="px-3 py-1 rounded-full text-sm ${isCompleted || isCurrent ? 'bg-white bg-opacity-20 text-white' : difficultyColors[level.difficulty]}">${level.difficulty}</span>
+                                        <span class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} text-sm">
+                                            <i class="fas fa-clock mr-1"></i>${level.duration} min
+                                        </span>
+                                        <span class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} text-sm">
+                                            <i class="fas fa-check-circle mr-1"></i>Pass: ${level.passingScore}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                ${isCompleted ? `
+                                    <div class="text-white">
+                                        <i class="fas fa-check-circle text-4xl mb-2"></i>
+                                        <div class="text-2xl font-bold">${progress.scores[level.id]}%</div>
+                                        <div class="text-sm opacity-90">Completed</div>
+                                    </div>
+                                ` : isLocked ? `
+                                    <div class="text-gray-400">
+                                        <i class="fas fa-lock text-4xl"></i>
+                                        <div class="text-sm mt-2">Locked</div>
+                                    </div>
+                                ` : isCurrent ? `
+                                    <div class="text-white">
+                                        <i class="fas fa-play-circle text-4xl mb-2"></i>
+                                        <div class="text-sm">Start Level</div>
+                                    </div>
+                                ` : `
+                                    <div class="text-gray-600">
+                                        <i class="fas fa-arrow-right text-3xl"></i>
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += levelCard;
+            });
+        }
+
+        // Update statistics
+        function updateStats() {
+            const completed = progress.completedLevels.length;
+            const totalLevels = levels.length;
+            const overallProgress = Math.round((completed / totalLevels) * 100);
+            
+            document.getElementById('overallProgress').textContent = overallProgress + '%';
+            document.getElementById('completedLevels').textContent = `${completed}/${totalLevels}`;
+            
+            if (completed > 0) {
+                const totalScore = progress.completedLevels.reduce((sum, levelId) => sum + (progress.scores[levelId] || 0), 0);
+                const avgScore = Math.round(totalScore / completed);
+                document.getElementById('averageScore').textContent = avgScore + '%';
+            }
+            
+            const minutes = Math.floor(progress.totalTime / 60);
+            document.getElementById('timeSpent').textContent = minutes + 'm';
+            
+            if (completed === totalLevels) {
+                document.getElementById('assessmentStatus').textContent = 'Completed';
+                document.getElementById('assessmentStatus').className = 'text-xl font-bold text-green-600';
+                document.querySelector('#assessmentStatus').parentElement.querySelector('i').className = 'fas fa-check-circle text-4xl text-green-600';
+            }
+        }
+
+        // Start a level
+        function startLevel(levelId) {
+            const level = levels.find(l => l.id === levelId);
+            if (!level) return;
+
+            document.getElementById('challengeTitle').textContent = level.title;
+            document.getElementById('challengeContent').innerHTML = `
+                <div class="text-center py-12">
+                    <i class="fas ${level.icon} text-6xl text-${level.color}-600 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-4">${level.title}</h3>
+                    <p class="text-gray-600 mb-6">${level.description}</p>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-left max-w-2xl mx-auto">
+                        <h4 class="font-bold text-lg mb-3">Level Requirements:</h4>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-clock text-blue-600 mr-2"></i>Duration: ${level.duration} minutes</li>
+                            <li><i class="fas fa-check-circle text-blue-600 mr-2"></i>Passing Score: ${level.passingScore}%</li>
+                            <li><i class="fas fa-layer-group text-blue-600 mr-2"></i>Difficulty: ${level.difficulty}</li>
+                        </ul>
+                    </div>
+                    <div class="space-x-4">
+                        <button onclick="simulateLevel(${levelId})" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:opacity-90 transition-opacity">
+                            <i class="fas fa-play mr-2"></i>Start Challenge
+                        </button>
+                        <button onclick="closeChallengeModal()" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-300">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('challengeModal').style.display = 'flex';
+        }
+
+        // Simulate level completion (in real implementation, this would be actual challenges)
+        function simulateLevel(levelId) {
+            const level = levels.find(l => l.id === levelId);
+            const score = Math.floor(Math.random() * 30) + 70; // Random score between 70-100
+            
+            progress.completedLevels.push(levelId);
+            progress.scores[levelId] = score;
+            progress.currentLevel = levelId + 1;
+            progress.totalTime += level.duration * 60;
+            
+            localStorage.setItem('logicalThinkingProgress', JSON.stringify(progress));
+            
+            // Show success message
+            document.getElementById('challengeContent').innerHTML = `
+                <div class="text-center py-12">
+                    <i class="fas fa-check-circle text-6xl text-green-600 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-4">Level Completed!</h3>
+                    <div class="text-5xl font-bold text-blue-600 mb-2">${score}%</div>
+                    <p class="text-gray-600 mb-6">${score >= level.passingScore ? 'Congratulations! You passed this level.' : 'Keep practicing! You can retry this level.'}</p>
+                    <button onclick="closeChallengeModal(); renderLevels(); updateStats();" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:opacity-90">
+                        Continue
+                    </button>
+                </div>
+            `;
+        }
+
+        // Close challenge modal
+        function closeChallengeModal() {
+            document.getElementById('challengeModal').style.display = 'none';
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
+
