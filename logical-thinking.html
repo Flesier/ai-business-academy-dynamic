@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <!-- <script src="auth.js"></script> -->
+    <script src="auth.js"></script>
     <script>
         // Logical Thinking Assessment Data
         const levels = [
@@ -292,7 +292,6 @@
 
         // Initialize the page
         function init() {
-            console.log('Initializing logical thinking page');
             renderLevels();
             updateStats();
         }
@@ -316,7 +315,7 @@
 
                 const levelCard = `
                     <div class="level-card ${isLocked ? 'level-locked' : ''} ${isCompleted ? 'level-completed' : ''} ${isCurrent && !isCompleted ? 'level-in-progress' : ''} bg-white rounded-xl p-6 shadow-md cursor-pointer"
-                         onclick="${isLocked ? '' : 'startLevel(' + level.id + ')'}">
+                         onclick="${isLocked ? '' : `startLevel(${level.id})`}">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4">
                                 <div class="bg-${level.color}-100 text-${level.color}-600 rounded-full p-4">
@@ -456,7 +455,8 @@
         }
 
         // Initialize on page load
-        init();
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
+

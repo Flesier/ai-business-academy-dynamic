@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compulsory Entry Assessment (CEA) - AI Business Academy</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <style>
+        .level-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .level-card:hover:not(.level-locked) {
+            transform: translateX(5px);
+            border-left-color: #3b82f6;
+        }
+        .level-locked {
+            opacity: 0.5;
+            cursor: not-allowed !important;
+        }
+        .level-completed {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        .level-current {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+        .challenge-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .challenge-option:hover:not(.disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .challenge-option.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            border-width: 3px;
+        }
+        .challenge-option.correct {
+            border-color: #10b981;
+            background-color: #d1fae5;
+            border-width: 3px;
+        }
+        .challenge-option.incorrect {
+            border-color: #ef4444;
+            background-color: #fee2e2;
+            border-width: 3px;
+        }
+        .challenge-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .modal {
+            display: none;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fas fa-brain text-blue-600 text-2xl"></i>
+                        <span class="text-xl font-bold text-gray-900">AI Business Academy</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600" id="userEmail"></span>
+                    <a href="student-dashboard.html" class="text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 rounded-2xl p-8 text-white mb-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-semibold mb-3">
+                            MANDATORY PREREQUISITE
+                        </div>
+                        <h1 class="text-4xl font-bold mb-2">Compulsory Entry Assessment (CEA)</h1>
+                        <p class="text-xl opacity-90">10 Levels • 50 Challenges • 100% Required to Pass Each Level</p>
+                        <p class="mt-4 text-lg">You must complete all 10 levels before accessing any course in the academy.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-6 inline-block">
+                            <i class="fas fa-graduation-cap text-6xl"></i>
+                        </div>
+                        <div class="mt-4">
+                            <div class="text-3xl font-bold" id="overallProgress">0%</div>
+                            <div class="text-sm opacity-90">Overall Progress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Levels Completed</p>
+                            <p class="text-3xl font-bold text-green-600" id="completedLevels">0/10</p>
+                        </div>
+                        <i class="fas fa-check-circle text-4xl text-green-600"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Current Level</p>
+                            <p class="text-3xl font-bold text-orange-600" id="currentLevelDisplay">1</p>
+                        </div>
+                        <i class="fas fa-layer-group text-4xl text-orange-600"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Challenges Passed</p>
+                            <p class="text-3xl font-bold text-blue-600" id="challengesPassed">0/50</p>
+                        </div>
+                        <i class="fas fa-tasks text-4xl text-blue-600"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Status</p>
+                            <p class="text-xl font-bold" id="assessmentStatus" style="color: #f59e0b;">In Progress</p>
+                        </div>
+                        <i class="fas fa-hourglass-half text-4xl" style="color: #f59e0b;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="bg-red-50 border-l-4 border-red-600 p-6 mb-8 rounded-r-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-2xl mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-red-900 mb-2">Important Requirements</h3>
+                        <ul class="text-red-800 space-y-1">
+                            <li>• You must score <strong>100%</strong> on each level to proceed to the next</li>
+                            <li>• Each level has <strong>5 challenges</strong> - all must be answered correctly</li>
+                            <li>• You can retry a level as many times as needed</li>
+                            <li>• All 10 levels must be completed before you can access any course</li>
+                            <li>• Your progress is automatically saved</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Levels Grid -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Assessment Levels</h2>
+                <div class="space-y-4" id="levelsContainer">
+                    <!-- Levels will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge Modal -->
+    <div id="challengeModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold" id="modalLevelTitle">Level Challenge</h2>
+                    <p class="text-gray-600 mt-1" id="modalLevelDescription"></p>
+                </div>
+                <button onclick="closeChallengeModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Challenge <span id="currentChallengeNum">1</span> of 5</span>
+                    <span id="challengeTimer">Time: 0:00</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="progress-bar bg-blue-600 h-3 rounded-full" id="challengeProgressBar" style="width: 20%"></div>
+                </div>
+            </div>
+            
+            <div id="challengeContent">
+                <!-- Challenge content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4">
+            <div class="text-center" id="resultsContent">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="cea-challenges.js"></script>
+    <script>
+        // CEA System
+        let ceaProgress = JSON.parse(localStorage.getItem('ceaProgress')) || {
+            currentLevel: 1,
+            completedLevels: [],
+            levelAttempts: {},
+            totalChallengesPassed: 0,
+            startedAt: new Date().toISOString(),
+            completedAt: null
+        };
+
+        let currentLevelData = null;
+        let currentChallengeIndex = 0;
+        let userAnswers = [];
+        let challengeStartTime = null;
+        let timerInterval = null;
+
+        // Initialize
+        function init() {
+            // Check if user is logged in
+            const user = JSON.parse(localStorage.getItem('userSession'));
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            document.getElementById('userEmail').textContent = user.email;
+
+            renderLevels();
+            updateStats();
+        }
+
+        // Render all levels
+        function renderLevels() {
+            const container = document.getElementById('levelsContainer');
+            container.innerHTML = '';
+
+            const levelKeys = Object.keys(CEA_CHALLENGES);
+            levelKeys.forEach((key, index) => {
+                const levelNum = index + 1;
+                const level = CEA_CHALLENGES[key];
+                const isCompleted = ceaProgress.completedLevels.includes(levelNum);
+                const isCurrent = levelNum === ceaProgress.currentLevel;
+                const isLocked = levelNum > ceaProgress.currentLevel;
+
+                const levelCard = `
+                    <div class="level-card ${isLocked ? 'level-locked' : ''} ${isCompleted ? 'level-completed' : ''} ${isCurrent && !isCompleted ? 'level-current' : ''} bg-white rounded-xl p-6 shadow-md ${isLocked ? '' : 'cursor-pointer'}"
+                         onclick="${isLocked ? '' : `startLevel(${levelNum})`}">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4 flex-1">
+                                <div class="text-center min-w-[60px]">
+                                    <div class="text-3xl font-bold ${isCompleted || isCurrent ? 'text-white' : 'text-gray-400'}">
+                                        ${levelNum}
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold ${isCompleted || isCurrent ? 'text-white' : 'text-gray-900'}">${level.title}</h3>
+                                    <p class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} mt-1">${level.description}</p>
+                                    <div class="flex items-center space-x-4 mt-3">
+                                        <span class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} text-sm">
+                                            <i class="fas fa-tasks mr-1"></i>5 Challenges
+                                        </span>
+                                        <span class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} text-sm">
+                                            <i class="fas fa-check-circle mr-1"></i>100% Required
+                                        </span>
+                                        ${ceaProgress.levelAttempts[levelNum] ? `
+                                            <span class="${isCompleted || isCurrent ? 'text-white text-opacity-90' : 'text-gray-600'} text-sm">
+                                                <i class="fas fa-redo mr-1"></i>Attempts: ${ceaProgress.levelAttempts[levelNum]}
+                                            </span>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right min-w-[100px]">
+                                ${isCompleted ? `
+                                    <div class="text-white">
+                                        <i class="fas fa-check-circle text-5xl mb-2"></i>
+                                        <div class="text-lg font-bold">Completed</div>
+                                        <div class="text-sm opacity-90">100%</div>
+                                    </div>
+                                ` : isLocked ? `
+                                    <div class="text-gray-400">
+                                        <i class="fas fa-lock text-5xl mb-2"></i>
+                                        <div class="text-sm">Locked</div>
+                                    </div>
+                                ` : isCurrent ? `
+                                    <div class="text-white">
+                                        <i class="fas fa-play-circle text-5xl mb-2"></i>
+                                        <div class="text-lg font-bold">Start</div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += levelCard;
+            });
+        }
+
+        // Update statistics
+        function updateStats() {
+            const completed = ceaProgress.completedLevels.length;
+            const overallProgress = Math.round((completed / 10) * 100);
+            
+            document.getElementById('overallProgress').textContent = overallProgress + '%';
+            document.getElementById('completedLevels').textContent = `${completed}/10`;
+            document.getElementById('currentLevelDisplay').textContent = ceaProgress.currentLevel;
+            document.getElementById('challengesPassed').textContent = `${ceaProgress.totalChallengesPassed}/50`;
+            
+            if (completed === 10) {
+                document.getElementById('assessmentStatus').textContent = 'Completed';
+                document.getElementById('assessmentStatus').style.color = '#10b981';
+                document.querySelector('#assessmentStatus').parentElement.querySelector('i').style.color = '#10b981';
+                document.querySelector('#assessmentStatus').parentElement.querySelector('i').className = 'fas fa-check-circle text-4xl';
+                
+                // Mark CEA as completed
+                ceaProgress.completedAt = new Date().toISOString();
+                localStorage.setItem('ceaProgress', JSON.stringify(ceaProgress));
+            }
+        }
+
+        // Start a level
+        function startLevel(levelNum) {
+            if (levelNum > ceaProgress.currentLevel) return;
+
+            const levelKey = `level${levelNum}`;
+            currentLevelData = {
+                levelNum: levelNum,
+                ...CEA_CHALLENGES[levelKey]
+            };
+
+            // Track attempts
+            if (!ceaProgress.levelAttempts[levelNum]) {
+                ceaProgress.levelAttempts[levelNum] = 0;
+            }
+            ceaProgress.levelAttempts[levelNum]++;
+            localStorage.setItem('ceaProgress', JSON.stringify(ceaProgress));
+
+            currentChallengeIndex = 0;
+            userAnswers = [];
+            challengeStartTime = Date.now();
+
+            document.getElementById('modalLevelTitle').textContent = currentLevelData.title;
+            document.getElementById('modalLevelDescription').textContent = currentLevelData.description;
+            
+            showChallenge(0);
+            document.getElementById('challengeModal').classList.add('active');
+            
+            // Start timer
+            startTimer();
+        }
+
+        // Show a challenge
+        function showChallenge(index) {
+            if (index >= currentLevelData.challenges.length) {
+                // All challenges completed, show results
+                showResults();
+                return;
+            }
+
+            currentChallengeIndex = index;
+            const challenge = currentLevelData.challenges[index];
+            
+            document.getElementById('currentChallengeNum').textContent = index + 1;
+            const progress = ((index + 1) / currentLevelData.challenges.length) * 100;
+            document.getElementById('challengeProgressBar').style.width = progress + '%';
+
+            const challengeHTML = `
+                <div class="challenge-question mb-6">
+                    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-6">
+                        <p class="text-lg font-semibold text-gray-900">${challenge.question}</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        ${challenge.options.map((option, i) => `
+                            <div class="challenge-option border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500" 
+                                 onclick="selectOption(${i})" 
+                                 data-option-index="${i}">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full border-2 border-gray-400 flex items-center justify-center mr-3 font-bold">
+                                        ${String.fromCharCode(65 + i)}
+                                    </div>
+                                    <span class="text-lg">${option}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="flex justify-between mt-6">
+                    <button onclick="closeChallengeModal()" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                        <i class="fas fa-times mr-2"></i>Cancel
+                    </button>
+                    <button id="submitAnswerBtn" onclick="submitAnswer()" disabled class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                        ${index < currentLevelData.challenges.length - 1 ? 'Next Challenge' : 'Submit Level'} <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('challengeContent').innerHTML = challengeHTML;
+        }
+
+        // Select an option
+        let selectedOption = null;
+        function selectOption(index) {
+            // Remove previous selection
+            document.querySelectorAll('.challenge-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selection to clicked option
+            const option = document.querySelector(`[data-option-index="${index}"]`);
+            option.classList.add('selected');
+            selectedOption = index;
+
+            // Enable submit button
+            document.getElementById('submitAnswerBtn').disabled = false;
+        }
+
+        // Submit answer
+        function submitAnswer() {
+            if (selectedOption === null) return;
+
+            const challenge = currentLevelData.challenges[currentChallengeIndex];
+            const isCorrect = selectedOption === challenge.correct;
+
+            userAnswers.push({
+                challengeId: challenge.id,
+                selected: selectedOption,
+                correct: challenge.correct,
+                isCorrect: isCorrect
+            });
+
+            // Show feedback
+            const options = document.querySelectorAll('.challenge-option');
+            options.forEach((opt, i) => {
+                opt.classList.add('disabled');
+                opt.onclick = null;
+                if (i === challenge.correct) {
+                    opt.classList.add('correct');
+                } else if (i === selectedOption && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Show explanation
+            const explanationHTML = `
+                <div class="mt-4 p-4 rounded-lg ${isCorrect ? 'bg-green-50 border-l-4 border-green-600' : 'bg-red-50 border-l-4 border-red-600'}">
+                    <div class="flex items-start">
+                        <i class="fas ${isCorrect ? 'fa-check-circle text-green-600' : 'fa-times-circle text-red-600'} text-2xl mr-3"></i>
+                        <div>
+                            <p class="font-bold ${isCorrect ? 'text-green-900' : 'text-red-900'} mb-2">
+                                ${isCorrect ? 'Correct!' : 'Incorrect'}
+                            </p>
+                            <p class="${isCorrect ? 'text-green-800' : 'text-red-800'}">${challenge.explanation}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.querySelector('.challenge-question').insertAdjacentHTML('beforeend', explanationHTML);
+
+            // Update button
+            document.getElementById('submitAnswerBtn').textContent = currentChallengeIndex < currentLevelData.challenges.length - 1 ? 'Next Challenge →' : 'View Results →';
+            document.getElementById('submitAnswerBtn').onclick = () => {
+                selectedOption = null;
+                showChallenge(currentChallengeIndex + 1);
+            };
+        }
+
+        // Show results
+        function showResults() {
+            stopTimer();
+            closeChallengeModal();
+
+            const correctAnswers = userAnswers.filter(a => a.isCorrect).length;
+            const totalChallenges = currentLevelData.challenges.length;
+            const score = Math.round((correctAnswers / totalChallenges) * 100);
+            const passed = score === 100;
+
+            const timeSpent = Math.floor((Date.now() - challengeStartTime) / 1000);
+            const minutes = Math.floor(timeSpent / 60);
+            const seconds = timeSpent % 60;
+
+            if (passed) {
+                // Level completed
+                if (!ceaProgress.completedLevels.includes(currentLevelData.levelNum)) {
+                    ceaProgress.completedLevels.push(currentLevelData.levelNum);
+                    ceaProgress.totalChallengesPassed += totalChallenges;
+                }
+                ceaProgress.currentLevel = Math.max(ceaProgress.currentLevel, currentLevelData.levelNum + 1);
+                localStorage.setItem('ceaProgress', JSON.stringify(ceaProgress));
+            }
+
+            const resultsHTML = `
+                <div class="text-center py-8">
+                    <i class="fas ${passed ? 'fa-check-circle text-green-600' : 'fa-times-circle text-red-600'} text-8xl mb-6"></i>
+                    <h2 class="text-3xl font-bold mb-4">${passed ? 'Level Completed!' : 'Level Not Passed'}</h2>
+                    
+                    <div class="text-6xl font-bold ${passed ? 'text-green-600' : 'text-red-600'} mb-4">
+                        ${score}%
+                    </div>
+                    
+                    <p class="text-xl text-gray-600 mb-6">
+                        ${correctAnswers} out of ${totalChallenges} challenges correct
+                    </p>
+                    
+                    <div class="bg-gray-100 rounded-lg p-6 mb-6 inline-block">
+                        <div class="flex items-center space-x-8">
+                            <div>
+                                <p class="text-sm text-gray-600">Time Taken</p>
+                                <p class="text-2xl font-bold">${minutes}:${seconds.toString().padStart(2, '0')}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-600">Attempts</p>
+                                <p class="text-2xl font-bold">${ceaProgress.levelAttempts[currentLevelData.levelNum]}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${passed ? `
+                        <p class="text-lg text-gray-700 mb-6">
+                            Congratulations! You scored 100% and can now proceed to the next level.
+                        </p>
+                        ${ceaProgress.currentLevel <= 10 ? `
+                            <button onclick="closeResultsModal(); renderLevels(); updateStats();" class="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 text-lg font-semibold">
+                                Continue to Next Level <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        ` : `
+                            <div class="bg-green-50 border-l-4 border-green-600 p-4 mb-4">
+                                <p class="text-green-900 font-bold">🎉 All levels completed! You can now access all courses.</p>
+                            </div>
+                            <button onclick="window.location.href='student-dashboard.html'" class="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 text-lg font-semibold">
+                                Go to Dashboard <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        `}
+                    ` : `
+                        <p class="text-lg text-gray-700 mb-6">
+                            You must score 100% to pass this level. Review the explanations and try again.
+                        </p>
+                        <div class="space-x-4">
+                            <button onclick="closeResultsModal(); startLevel(${currentLevelData.levelNum});" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-lg font-semibold">
+                                <i class="fas fa-redo mr-2"></i>Retry Level
+                            </button>
+                            <button onclick="closeResultsModal(); renderLevels(); updateStats();" class="px-8 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-lg font-semibold">
+                                Back to Levels
+                            </button>
+                        </div>
+                    `}
+                </div>
+            `;
+
+            document.getElementById('resultsContent').innerHTML = resultsHTML;
+            document.getElementById('resultsModal').classList.add('active');
+        }
+
+        // Timer functions
+        function startTimer() {
+            let seconds = 0;
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                document.getElementById('challengeTimer').textContent = 
+                    `Time: ${mins}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        // Modal functions
+        function closeChallengeModal() {
+            document.getElementById('challengeModal').classList.remove('active');
+            stopTimer();
+        }
+
+        function closeResultsModal() {
+            document.getElementById('resultsModal').classList.remove('active');
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
+

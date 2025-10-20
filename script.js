@@ -1,4 +1,3 @@
-/* @ts-nocheck */
 // AI Business Academy - Dynamic Website JavaScript
 
 // Data Storage
@@ -377,7 +376,8 @@ const AppData = {
                 'Business Applications',
                 'Regulations and Safety'
             ]
-        },
+        }],
+        ,
         {
             id: 9,
             title: 'Incubator Auditors & Certification System',
@@ -436,8 +436,7 @@ const AppData = {
                 'Level 10: Master Challenge'
             ]
         }
-    ],
-
+    
     curriculumSteps: [
         {
             number: 1,
@@ -751,14 +750,12 @@ const CourseManager = {
             throw new Error('Course not found');
         }
         
-        // Check if Logical Thinking Assessment is completed (mandatory prerequisite)
-        if (courseId !== 10) { // Don't check prerequisite for the prerequisite course itself
-            const logicalThinkingProgress = JSON.parse(localStorage.getItem('logicalThinkingProgress') || '{}');
-            const logicalThinkingCompleted = logicalThinkingProgress.completedLevels && logicalThinkingProgress.completedLevels.length === 10;
-            
-            if (!logicalThinkingCompleted) {
-                throw new Error('You must complete the Logical Thinking Assessment before enrolling in other courses. This is a mandatory prerequisite.');
-            }
+        // Check if Compulsory Entry Assessment (CEA) is completed (mandatory prerequisite)
+        const ceaProgress = JSON.parse(localStorage.getItem('ceaProgress') || '{}');
+        const ceaCompleted = ceaProgress.completedLevels && ceaProgress.completedLevels.length === 10;
+        
+        if (!ceaCompleted) {
+            throw new Error('You must complete the Compulsory Entry Assessment (CEA) before enrolling in any course. Click the "CEA (Required)" link in the navigation menu to start.');
         }
         
         // Add to user's progress
